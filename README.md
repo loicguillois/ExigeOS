@@ -4,6 +4,8 @@ A minimal, didactic operating system kernel written in C, targeting both **x86**
 
 ExigeOS is a complete rewrite of **[Elise-OS](https://github.com/loicguillois/Elise-OS)** — a real-mode x86 OS in 16-bit assembly written in 2003.  The two projects together show how far the same ideas can evolve: from BIOS interrupts and real mode to direct hardware access and 32-bit protected mode.
 
+![ExigeOS running in QEMU](screenshot.png)
+
 ---
 
 ## From Elise-OS (2003) to ExigeOS
