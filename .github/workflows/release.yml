@@ -1,0 +1,56 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write   # needed to create a GitHub Release and upload assets
+
+jobs:
+  release:
+    name: Build and publish release
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y \
+            gcc-multilib nasm binutils \
+            gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu
+
+      - name: Build x86
+        run: make PLATFORM=x86
+
+      - name: Build RPi3
+        run: make PLATFORM=rpi3
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ExigeOS ${{ github.ref_name }}
+          body: |
+            ## ExigeOS ${{ github.ref_name }}
+
+            Pre-built binaries for both supported platforms.
+
+            ### x86 — `exigeos_x86.bin`
+            Multiboot-compliant flat binary. Load with GRUB or QEMU:
+            ```
+            qemu-system-i386 -kernel exigeos_x86.bin \
+              -audiodev pipewire,id=snd0 -machine pc,pcspk-audiodev=snd0
+            ```
+
+            ### Raspberry Pi 3B — `exigeos_rpi3.elf`
+            AArch64 ELF. Run with QEMU:
+            ```
+            qemu-system-aarch64 -machine raspi3b -cpu cortex-a53 -m 1G \
+              -kernel exigeos_rpi3.elf -serial stdio -display none -no-reboot
+            ```
+          files: |
+            exigeos_x86.bin
+            exigeos_rpi3.elf
