@@ -22,7 +22,8 @@ LABEL org.opencontainers.image.licenses="MIT"
 
 RUN apt-get update -qq && \
     apt-get install -y --no-install-recommends \
-        gcc-multilib \
+        gcc \
+        libc6-dev-i386 \
         nasm \
         binutils \
         gcc-aarch64-linux-gnu \
