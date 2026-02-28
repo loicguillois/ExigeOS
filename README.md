@@ -320,6 +320,12 @@ Available colours: `black` `blue` `green` `cyan` `red` `magenta` `brown` `grey` 
 
 ---
 
+## Author
+
+**Loïc Guillois** — [contact@loicguillois.fr](mailto:contact@loicguillois.fr)
+
+---
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
