@@ -1,0 +1,52 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-x86:
+    name: x86 (i386 Multiboot)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y gcc-multilib nasm binutils
+
+      - name: Build
+        working-directory: ExigeOS
+        run: make PLATFORM=x86
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: exigeos-x86
+          path: ExigeOS/exigeos_x86.bin
+
+  build-rpi3:
+    name: RPi3 (AArch64)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu
+
+      - name: Build
+        working-directory: ExigeOS
+        run: make PLATFORM=rpi3
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: exigeos-rpi3
+          path: ExigeOS/exigeos_rpi3.elf

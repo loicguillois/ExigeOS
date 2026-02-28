@@ -1,0 +1,11 @@
+# Build output
+build/
+*.elf
+*.bin
+*.o
+
+# Editor artifacts
+*.swp
+*.swo
+*~
+.DS_Store
