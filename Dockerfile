@@ -13,7 +13,7 @@
 #   # Build for RPi3
 #   docker run --rm -v "$PWD":/src ghcr.io/loicguillois/exigeos make PLATFORM=rpi3
 
-FROM ubuntu:24.04
+FROM ubuntu:22.04
 
 LABEL org.opencontainers.image.title="ExigeOS build environment"
 LABEL org.opencontainers.image.description="Cross-compilation toolchain for ExigeOS (x86 + Raspberry Pi 3B)"
